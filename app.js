@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+var session = require('express-session');
+var passport = require('passport')
+require('dotenv').config()
+const ClientURL = process.env.CLient_URL
+
+var passportsetUP = require('./config/passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,7 +25,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}));
+
+var corsOptions = {
+  origin: ClientURL, 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors(corsOptions));
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -98,3 +98,4 @@ const roleUser = async(req, res, next)=>{
 
 
 module.exports = {hashPassword, hashCompare, createToken, decodeToken, validate, roleAdmin, roleUser}
+
