@@ -31,15 +31,15 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-var corsOptions = {
-  origin: ClientURL, 
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
+// var corsOptions = {
+//   origin: ClientURL, 
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+// };
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 
